@@ -1,10 +1,21 @@
-from playwright.sync_api import Page, expect
+import unittest
+from playwright.sync_api import sync_playwright
+
+class TestGoogle(unittest.TestCase):
+
+    def test_google(self):
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=False)
+            page = browser.new_page()
+            page.goto("https://google.com")
+
+            title = page.title()
+            print(title)
+
+            self.assertIn("Google", title)
+
+            browser.close()
 
 
-def test_example(page: Page) -> None:
-    page.goto("https://app.vwo.com/#/login")
-    page.get_by_role("textbox", name="Email address").click()
-    page.get_by_role("textbox", name="Email address").fill("admin")
-    page.get_by_role("textbox", name="Password").click()
-    page.get_by_role("textbox", name="Password").fill("admin")
-    page.get_by_role("button", name="Sign in", exact=True).click()
+if __name__ == "__main__":
+    unittest.main()

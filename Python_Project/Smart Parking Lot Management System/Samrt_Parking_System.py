@@ -5,4 +5,3 @@ class PakringSystem:
         self.Entry_time = Entry_time
         self.Exit_time = Exit_time
 
-    def
